@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">DemoViewpager</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Category</string>
+    <string name="title_notifications">Deals</string>
+    <string name="title_whishlist">Whishlist</string>
+    <string name="title_account">Account</string>
+    <string name="description">Kurti Style: Smart printed straight kurta with contrast neck, sleeve and border detail. Fabric Style: Traditional block print in classic colours. Styling Tip: Can we worn to work as a casua l outfit with leggings or accessorized as a festive outfit with flared palazzos or a skirt.. Garment Fit: Garment is made with relaxed fit. Model Model is height
+        5'9' with bust 34 and is wearing size S.. Fabric Type: Garment is made of viscose Rayon, which is 100% natural fabric that is suitable for all weather. Wash Care: First Wash Dry Clean, thereafter Hand wash</string>
+    <string name="title_activity_cart">CartActivity</string>
+
+</resources>
