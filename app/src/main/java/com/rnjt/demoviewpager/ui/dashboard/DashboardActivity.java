@@ -7,9 +7,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.rnjt.demoviewpager.ui.dashboard.adapter.MyPagerAdapter;
 import com.rnjt.demoviewpager.R;
 import com.rnjt.demoviewpager.Views.BottomNavigationViewHelper;
+import com.rnjt.demoviewpager.manager.SessionManager;
+import com.rnjt.demoviewpager.ui.dashboard.adapter.MyPagerAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +51,8 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        SessionManager.init(this);
+
         final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
@@ -79,8 +82,4 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
 }

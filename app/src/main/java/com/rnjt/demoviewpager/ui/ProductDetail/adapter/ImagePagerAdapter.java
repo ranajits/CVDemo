@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.rnjt.demoviewpager.R;
 import com.rnjt.demoviewpager.ui.ProductDetail.ItemImagePagerFragment;
 import com.rnjt.demoviewpager.ui.ProductDetail.ProductItemDetail;
+import com.rnjt.demoviewpager.utils.AppConfig;
 import com.rnjt.demoviewpager.utils.CVUtilities;
 
 import java.util.ArrayList;
@@ -68,26 +69,12 @@ public class ImagePagerAdapter extends PagerAdapter {
 
         final ImageView img = (ImageView) view.findViewById(R.id.session_photo);
 
-        String s;
-
         try {
-            s = "https://img4.craftsvilla.com/C/V/CV-35639-MCRAF60196707760-1523083565-Craftsvilla_1.jpg";
-            Glide.with(context).load(Uri.parse(s)).into(img);
-        } catch (Exception e) {
-            s = "http://";
-
-        }
-
-        try {
-
-           // Glide.with(context).load(Uri.parse(s)).into(img);
-            //Glide.with(context).load(R.drawable.ic_launcher_background).into(img);
+            Glide.with(context).load(Uri.parse(AppConfig.getImageFiles().get(0))).into(img);
 
         } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        final String finalS = s;
+        }
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

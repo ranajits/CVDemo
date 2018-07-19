@@ -19,17 +19,16 @@ public class SessionManager {
     private static SessionManager sInstance = null;
     private Context mContext;
 
-    public Bucket getProducts() {
-        return products;
+
+    Bucket bucket;
+
+    public Bucket getBucket() {
+        return bucket;
     }
 
-    public void setProducts(Bucket products) {
-        this.products = products;
+    public void setBucket(Bucket bucket) {
+        this.bucket = bucket;
     }
-
-    Bucket products;
-
-
 
     private SessionManager(Context context) {
         mContext = context;
@@ -61,7 +60,7 @@ public class SessionManager {
     private void initSessionFromPreference() {
         SharedPreferences preferences = getSessionPreference();
 
-        products = new Gson().fromJson(preferences.getString(PREF_Product_DETAIL, null), Bucket.class);
+        bucket = new Gson().fromJson(preferences.getString(PREF_Product_DETAIL, null), Bucket.class);
 
 
     }
@@ -82,32 +81,39 @@ public class SessionManager {
 
 
     public void addProductToBucket(Product product){
-        ArrayList<Product> productsList= getProducts().getProducts();
+        ArrayList<Product> productsList = null;
 
-        if(productsList!=null) {
+
+
+        if(getBucket()==null){
+            bucket= new Bucket();
+        }
+
+        if(getBucket().getProducts()!=null) {
+            productsList= getBucket().getProducts();
             productsList.add(product);
         }else {
             productsList= new ArrayList<>();
             productsList.add(product);
         }
-        products.setProducts(productsList);
+        bucket.setProducts(productsList);
         SharedPreferences.Editor editor = getSessionPreference().edit();
-        editor.putString(PREF_Product_DETAIL, new Gson().toJson(products));
+        editor.putString(PREF_Product_DETAIL, new Gson().toJson(bucket));
         editor.commit();
         initSessionFromPreference();
     }
 
 
     public void removeProductFromBucket(){
-        ArrayList<Product> productsList= getProducts().getProducts();
+        ArrayList<Product> productsList= getBucket().getProducts();
 
         if(productsList!=null) {
             if(productsList.size()>0)
                 productsList.remove(0);
         }
-        products.setProducts(productsList);
+        bucket.setProducts(productsList);
         SharedPreferences.Editor editor = getSessionPreference().edit();
-        editor.putString(PREF_Product_DETAIL, new Gson().toJson(products));
+        editor.putString(PREF_Product_DETAIL, new Gson().toJson(bucket));
         editor.commit();
         initSessionFromPreference();
     }

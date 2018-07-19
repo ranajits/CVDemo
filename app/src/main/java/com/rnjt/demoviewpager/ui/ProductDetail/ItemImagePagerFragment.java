@@ -1,9 +1,10 @@
 
 package com.rnjt.demoviewpager.ui.ProductDetail;
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
 import android.view.Gravity;
@@ -13,16 +14,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
-import com.rnjt.demoviewpager.ui.ProductDetail.adapter.ExtendedViewPager;
 import com.rnjt.demoviewpager.R;
 import com.rnjt.demoviewpager.Views.CirclePageIndicator;
-import com.rnjt.demoviewpager.Views.TouchImageView;
+import com.rnjt.demoviewpager.ui.ProductDetail.adapter.ExtendedViewPager;
+import com.rnjt.demoviewpager.utils.AppConfig;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 
 
@@ -30,7 +28,7 @@ import java.util.Map;
 
 public class ItemImagePagerFragment extends DialogFragment {
     private FrameLayout btn_cancel;
-    private ArrayList<Map<String, String>> url;
+    //private ArrayList<Map<String, String>> url;
     private CirclePageIndicator titleIndicator;
 
     @Override
@@ -46,7 +44,7 @@ public class ItemImagePagerFragment extends DialogFragment {
 
         View list_root = inflater.inflate(R.layout.fragment_image_pager, container, false);
 
-        url = (ArrayList<Map<String, String>>) getArguments().getSerializable("Url");
+      //  url = (ArrayList<Map<String, String>>) getArguments().getSerializable("Url");
 
         btn_cancel = (FrameLayout) list_root.findViewById(R.id.btn_cancel);
 
@@ -54,7 +52,7 @@ public class ItemImagePagerFragment extends DialogFragment {
 
         titleIndicator = (CirclePageIndicator) list_root.findViewById(R.id.pagerIndicator);
 
-        mViewPager.setAdapter(new TouchImageAdapter(url));
+        mViewPager.setAdapter(new TouchImageAdapter(new ArrayList<String>()));
 
         titleIndicator.setViewPager(mViewPager);
 
@@ -89,26 +87,26 @@ public class ItemImagePagerFragment extends DialogFragment {
 
     class TouchImageAdapter extends PagerAdapter {
 
-        ArrayList<Map<String, String>> url;
+        ArrayList<String> url;
 
-        TouchImageAdapter(ArrayList<Map<String, String>> url) {
-            this.url = url;
+        TouchImageAdapter(ArrayList<String> url) {
+            this.url = AppConfig.getImageFiles();
         }
 
         @Override
         public int getCount() {
-            return url.size();
+            return 5;
         }
 
         @Override
         public View instantiateItem(ViewGroup container, int position) {
-            final TouchImageView img = new TouchImageView(container.getContext());
 
-          String  s = "https://img4.craftsvilla.com/C/V/CV-35639-MCRAF60196707760-1523083565-Craftsvilla_1.jpg";
-            Glide.with(getActivity()).load(Uri.parse(s)).into(img);
-            container.addView(img, LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
-            return img;
+            LayoutInflater inflater = (LayoutInflater) getActivity()
+                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.details_image, container, false);
+            container.addView(view);
+            return  view;
+
         }
 
         @Override
@@ -121,5 +119,18 @@ public class ItemImagePagerFragment extends DialogFragment {
             return view == object;
         }
 
-    }
+        @Override
+        public void restoreState(Parcelable arg0, ClassLoader arg1) {
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
+        }
+
+        private int getPosition(int position) {
+            return position;
+        }
+
+         }
 }
